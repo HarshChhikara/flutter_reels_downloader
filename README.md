@@ -17,6 +17,8 @@ import 'package:flutter_reels_downloader/flutter_reels_downloader.dart';
 ```dart 
  var s = await reelDownloader.downloadReels("");//URL
 ```
+### Example
+[Click here for more Example](https://pub.dev/packages/flutter_reels_downloader/example)
 
 ![](./images/image.png)
 Created by [Harsh Chhikara](https://www.linkedin.com/in/harsh-chhikara-191a84175/)
