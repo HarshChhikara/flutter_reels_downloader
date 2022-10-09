@@ -1,6 +1,9 @@
+import 'package:ReelDownloader/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_reels_downloader/flutter_reels_downloader.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
@@ -39,12 +42,13 @@ class _HomePageState extends State<HomePage> {
 
   void initializeDownloader() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await FlutterDownloader.initialize(debug: false // optional: set false to disable printing logs to console
-    );
+    await FlutterDownloader.initialize(
+        debug: false // optional: set false to disable printing logs to console
+        );
   }
 
   void downloadReels() async {
-    var s = await reelDownloader.downloadReels("");//URL
+    var s = await reelDownloader.downloadReels(""); //URL
     print(s);
   }
 
@@ -52,7 +56,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reels Downloader Example'),
+        title: Text('Reels Downloader Example'),
+        centerTitle: true,
       ),
       body: reelPage(),
     );
@@ -62,11 +67,22 @@ class _HomePageState extends State<HomePage> {
 //Reel Downloader page
   Widget reelPage() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextField(
-          controller: reelController,
+        Lottie.asset(
+          'assets/lottie.json',
+          repeat: true,
+          width: 200,
+          height: 200,
+          fit: BoxFit.fill,
         ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(50, 30, 50, 0),
+          child: TextField(
+            controller: reelController,
+          ),
+        ),
+        SizedBox(height: 15,),
         ElevatedButton(
           onPressed: () {
             setState(() {
@@ -78,8 +94,14 @@ class _HomePageState extends State<HomePage> {
         ),
         downloading
             ? Center(
-          child: CircularProgressIndicator(), //if downloading is true show Progress Indicator
-        )
+                //if downloading is true show Progress Indicator
+                child: Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: SpinKitWave(
+                    color: Colors.blue,
+                  ),
+                ),
+              )
             : Container()
       ],
     );
@@ -94,7 +116,8 @@ class _HomePageState extends State<HomePage> {
       savedDir: '/sdcard/Download',
       showNotification: true,
       // show download progress in status bar (for Android)
-      openFileFromNotification: true, // click on notification to open downloaded file (for Android)
+      openFileFromNotification:
+          true, // click on notification to open downloaded file (for Android)
     ).whenComplete(() {
       setState(() {
         downloading = false; // set to false to stop Progress indicator
