@@ -14,7 +14,7 @@ https://hacktoberfest.com//</p>
 
 - Run the project on your system and look for any bug fixes.
 - You can make any change, If it works and good for app, it will be merged.
-- Make sure your follow the below steps.
+- Make sure you follow the below steps.
 
 ---
 
